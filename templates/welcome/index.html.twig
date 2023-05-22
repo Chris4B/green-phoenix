@@ -1,0 +1,102 @@
+{% extends 'blank.html.twig' %}
+
+{% block title %}Green Phoenix | Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <!-- Begin Page Content -->
+
+    <nav class="navbar navbar-expand bg-light shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </div>
+                <div class="navbar-nav ms-auto ">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Inscription</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Médecins</a></li>
+                            <li><a class="dropdown-item" href="#">Patients</a></li>
+
+                        </ul>
+                    </li>
+{#                    <li class="nav-item dropdown">#}
+{#                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inscription</a>#}
+{#                        <div class="dropdown-menu">#}
+{#                            <a class="dropdown-item" href="">Medecins</a>#}
+{#                            <a class="dropdown-item" href="">Patients</a>#}
+{#                        </div>#}
+{#                    </li>#}
+                    <a class="nav-link" href="">Connexion</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container ">
+
+        <div class=" row flex-column mt-5">
+            <div class=" text-center ">
+                <h2> Veuillez rechercher un médecin</h2>
+            </div>
+        </div>
+        <div class=" row flex-column align-content-center mt-5 ">
+            <div class="  col-6 mt-5">
+                <form class="d-flex" role="search" class="mt-5 me-auto" action="{{ path('app_welcome_index') }}" method="POST">
+                    <input class="form-control me-2" type="search" id="doctor_search" name="doctor_search" value="" placeholder="Rechercher un médecin" aria-label="Search">
+                    <button class="btn btn-outline-success" name="submit" type="submit">Rechercher </button>
+                </form>
+            </div>
+
+            {% if medecins is defined %}
+            {% if medecins | length > 0 %}
+            <div class="col-8 ">
+                <div id="results" class=" mt-5 ">
+                    <H5 id="nbr" class="mb-3">
+                        {{ medecins|length}} résultat{{ medecins |length >1 ? 's':'' }} trouvé{{ medecins |length >1 ? 's':'' }}
+                    </H5>
+                    <ul>
+                        {% for medecin in medecins %}
+                            <li>
+                                {{ medecin.firstName }} {{ medecin.lastName }}
+{#                                <a href="{{ path('doctor_index') }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>#}
+                            </li>
+                        {%endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                    <div class="col-10">
+                        <div id="results" class=" mt-5 ">
+                            <H5 id="nbr" class="mb-3">Acun résultat trouvé</H5>
+                        </div>
+                    </div>
+                {% endif %}
+                {% endif %}
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Page Heading -->
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+{% endblock %}
+{% block javascripts%}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}

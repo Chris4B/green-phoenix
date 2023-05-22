@@ -1,0 +1,101 @@
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Vous allez vous déconnectez. Etes vous sûr?.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="">Déconnexion</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Appointment Modal -->
+
+<div id="appointmentModal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="appointmentModalTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter un RDV</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="patient">Nom du Patient</label>
+                        <input type="text" class="form-control" id="patient" name="patient" value="">
+                    </div>
+{#                    <div class="form-group">#}
+{#                        <label for="description">Description</label>#}
+{#                        <select name="description" id="description">#}
+{#                            <option value="reason-of-appointment" selected disabled>Motif du rendez-vous</option>#}
+{#                            <option value="consultation">Consultation</option>#}
+{#                        </select>#}
+{#                    </div>#}
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button id="validate-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Enregistrer</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Edit  Modal -->
+
+<div id="editModal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="appointmentModalTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Suppression du RDV</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <H5 class="text-center">Nom du RDV</H5>
+                <div id="info-patient" class="text-center"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-btn" type="button" class="btn btn-success" data-dismiss="modal">Annuler</button>
+                <button id="confirm-btn" type="button" class="btn btn-danger" data-dismiss="modal">Confirmer</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
