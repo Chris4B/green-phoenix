@@ -18,6 +18,7 @@ import $ from 'jquery';
 // global.$ = $;
 
 //IMPORT BOOTSTRAP
+import '@popperjs/core';
 import 'bootstrap'; //adds functions to jQuery
 
 //IMPORT SB ADMIN CUSTOM JS

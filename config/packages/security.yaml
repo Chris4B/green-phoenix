@@ -20,7 +20,7 @@ security:
             custom_authenticator: App\Security\UsersAuthenticator
             logout:
                 path: app_logout
-                target: welcome_index
+                target: app_welcome_index
                 # where to redirect after logout
                 # target: app_any_route
             remember_me:
