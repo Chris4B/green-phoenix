@@ -2,11 +2,13 @@
 
 import '../styles/template.scss';
 import '@fortawesome/fontawesome-free';
+//IMPORT BOOTSTRAP
+import 'bootstrap';
 
-import $ from 'jquery';
+// import $ from 'jquery';
 
 (function ($) {
-    "use strict"; // Start of use strict
+ "use strict"; // Start of use strict
 
     // Toggle the side navigation
     $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
