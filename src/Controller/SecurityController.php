@@ -17,7 +17,7 @@ class SecurityController extends AbstractController
             if (in_array('ROLE_DOCTOR', $roles)) {
                 return $this->redirectToRoute('doctor_index');
             } else {
-                return $this->redirectToRoute('target_path');
+                return $this->redirectToRoute('app_users');
             }
         }
 

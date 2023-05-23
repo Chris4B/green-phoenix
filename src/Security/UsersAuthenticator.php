@@ -50,12 +50,12 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
         $user = $token->getUser();
 
         if($user instanceof Users && in_array('ROLE_DOCTOR', $user->getRoles(), true)){
-            return new RedirectResponse($this->urlGenerator->generate('doctor_index'));
+            return new RedirectResponse($this->urlGenerator->generate('app_doctors'));
 
         }
 
         // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
+         return new RedirectResponse($this->urlGenerator->generate('app_users'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
