@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free';
 //IMPORT BOOTSTRAP
 import '@popperjs/core';
 import 'bootstrap';
+import './components/calendar'
 
 import $ from 'jquery';
 
