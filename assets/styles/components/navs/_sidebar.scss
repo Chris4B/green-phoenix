@@ -249,6 +249,7 @@
                         font-weight: 900;
                         content: '\f107';
                         font-family: 'Font Awesome 5 Free';
+                        //@extend .fas;
                     }
 
                     &.collapsed::after {
