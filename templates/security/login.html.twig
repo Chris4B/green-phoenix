@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Green Phoenix | Connexion{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center my-5">
+        <div class="col-6">
+            <div  class="card o-hidden border-0 shadow-lg my-5">
+                <div id="form-wrapper" class="card-body">
+                    <form method="POST" action="{{ path('app_login') }}">
+
+                        <div class="row justify-content-center mt-4">
+                            <div class="form-group col-5 text-center">
+                                <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group ">
+                                {% if error %}
+                                    <div class="alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+
+                                {% if app.user %}
+                                    <div class="mb-3 text-center">
+                                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center mt-3 mb-3">
+                            <div class="form-group col-10">
+                                <label for="inputEmail">Email *</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center mt-3 mb-3">
+                            <div class="form-group col-10">
+                                <label for="inputPassword">Mot de passe *</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center mt-3 ">
+                            <div class="form-group col-10">
+                                <div class="checkbox mb-3">
+                                    <input type="checkbox"  class="mx-1" name="_remember_me">
+                                    <label> Se rappeler de moi</label>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-10">
+                                <button class="btn btn-primary" type="submit">
+                                    Connexion
+                                </button>
+                            </div>
+
+
+                    </form>
+
+                    <div class="row mt-5 ">
+                        <div class="text-center ">
+                            <a class="small" href="#">Mot de passe oublié?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="">Médecin? Création de compte!</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="">Patient? Création de compte!</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+
+
+{% endblock %}
