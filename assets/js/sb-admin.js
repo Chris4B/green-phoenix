@@ -4,10 +4,11 @@ import '../styles/template.scss';
 import '@fortawesome/fontawesome-free';
 //IMPORT BOOTSTRAP
 import '@popperjs/core';
+import $ from 'jquery';
 import 'bootstrap';
 import './components/calendar'
 
-import $ from 'jquery';
+
 
 
  "use strict"; // Start of use strict

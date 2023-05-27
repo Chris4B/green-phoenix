@@ -34,10 +34,15 @@
                     </H5>
                     <ul>
                         {% for medecin in medecins %}
-                            <li>
-                                {{ medecin.firstName }} {{ medecin.lastName }}
-{#                                <a href="{{ path('doctor_index') }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>#}
-                            </li>
+{#                            <li>#}
+{#                                {{ medecin.firstName }} {{ medecin.lastName }}#}
+{#                                <a href="{{ path('app_login', {'redirect' : path('app_doctors')}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>#}
+{#                            </li>#}
+                            {% if not app.user %}
+                                <a href="{{ path('app_login', {'redirect': path('app_doctors',{'id':medecin.id})}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>
+                            {% else %}
+                                <a href="{{ path('app_doctors', {'id':medecin.id}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>
+                            {% endif %}
                         {%endfor %}
                     </ul>
                 </div>

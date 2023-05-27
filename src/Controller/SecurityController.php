@@ -3,23 +3,42 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/connexion', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request, CsrfTokenManagerInterface $csrfTokenManager, Security $security, UrlGeneratorInterface $urlGenerator): Response
     {
-        if ($this->getUser()) {
-            $roles = $this->getUser()->getRoles();
-            if (in_array('ROLE_DOCTOR', $roles)) {
-                return $this->redirectToRoute('doctor_index');
-            } else {
-                return $this->redirectToRoute('app_users');
-            }
+
+//        if ($this->getUser()) {
+//            $roles = $this->getUser()->getRoles();
+//            if (in_array('ROLE_DOCTOR', $roles)) {
+//                return $this->redirectToRoute('app_doctors');
+//            } else {
+//                return $this->redirectToRoute('app_users');
+//            }
+//        }
+        $redirect = $request->query->get('redirect');
+
+        if($security->isGranted('ROLE_USER')){
+            return $this->redirectToRoute('app_users');
+        }elseif($security->isGranted('ROLE_DOCTOR')){
+
+            return $this->redirectToRoute('app_doctors');
+        } elseif($redirect){
+            return $this->redirect($redirect);
         }
+
+
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

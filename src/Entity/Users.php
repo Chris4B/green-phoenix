@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -50,8 +52,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[ORM\ManyToMany(targetEntity: Doctors::class, inversedBy: 'users')]
+    private Collection $doctors;
+
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Events::class)]
+    private Collection $events;
+
     public function __construct(){
         $this->createdAt = new \DateTimeImmutable();
+        $this->doctors = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,6 +202,60 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Doctors>
+     */
+    public function getDoctors(): Collection
+    {
+        return $this->doctors;
+    }
+
+    public function addDoctor(Doctors $doctor): self
+    {
+        if (!$this->doctors->contains($doctor)) {
+            $this->doctors->add($doctor);
+        }
+
+        return $this;
+    }
+
+    public function removeDoctor(Doctors $doctor): self
+    {
+        $this->doctors->removeElement($doctor);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Events>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Events $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Events $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getUsers() === $this) {
+                $event->setUsers(null);
+            }
+        }
 
         return $this;
     }

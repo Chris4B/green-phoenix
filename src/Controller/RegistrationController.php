@@ -91,7 +91,7 @@ class RegistrationController extends AbstractController
             $email = trim($request->request->get('email'));
             $password = trim($request->request->get('password'));
 
-            //create a new user and hydrating data
+            //create a new doctor and hydrating data
             $doctor = new Doctors();
             $doctor->setFirstName($firstName);
             $doctor->setLastName(($lastName));
