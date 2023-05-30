@@ -37,6 +37,7 @@ function getAvailableTimeSlots(events, start, end, slotDuration) {
 window.onload =() => {
 
 
+
     let calendarElt = document.querySelector('#calendar')
     const role = calendarElt.getAttribute('data-role');
     const doctorView = calendarElt.getAttribute('data-doctor-view');
@@ -140,6 +141,7 @@ window.onload =() => {
                     console.error('Error fetching events', error);
                     failureCallback(error);
                 });
+
         },
         eventDrop: function(info){
             if(!doctorView){
@@ -210,21 +212,21 @@ window.onload =() => {
         // },
 
         // get all the events of full calendar
-        eventDidMount: function(info) {
-            let events = calendar.getEvents();
-            // console.log(events);
-            let start = moment(info.event.start);
-            // console.log(start);
-            // let end = moment(info.event.end);
-            let slotDuration = moment.duration(calendar.getOption('slotDuration'));
-            // console.log(slotDuration);
-            let availableSlots = getAvailableTimeSlots(events, start, slotDuration);
-            // console.log(availableSlots);
-            // console.log('Plages horaires disponibles :');
-            // availableSlots.forEach(function(slot) {
-            //     console.log(slot.start.format('HH:mm'), '-', slot.end.format('HH:mm'));
-            // });
-        },
+        // eventDidMount: function(info) {
+        //     let events = calendar.getEvents();
+        //     console.log(events);
+        //     let start = moment(info.event.start);
+        //     console.log(start);
+        //     let end = moment(info.event.end);
+        //     let slotDuration = moment.duration(calendar.getOption('slotDuration'));
+        //     console.log(slotDuration);
+        //     let availableSlots = getAvailableTimeSlots(events, start, slotDuration);
+        //     console.log(availableSlots);
+        //     console.log('Plages horaires disponibles :');
+        //     availableSlots.forEach(function(slot) {
+        //         console.log(slot.start.format('HH:mm'), '-', slot.end.format('HH:mm'));
+        //     });
+        // },
 
         allDaySlot: false,
         navLinks:true,
@@ -235,9 +237,9 @@ window.onload =() => {
 
     // get all the events of full calendar
 
-    // let events =  calendar.getEvents();
+    let events =  calendar.getEvents();
     //
-    // console.log(events);
+    console.log(events);
 
 
 

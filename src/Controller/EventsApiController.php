@@ -97,7 +97,7 @@ class EventsApiController extends AbstractController
 
         //retrieve user by association of eventID and UserID
 
-        $event = $entityManager->getRepository(Events::class)->findOneBy(['id'=>$id,'user'=>$user]);
+        $event = $entityManager->getRepository(Events::class)->findOneBy(['id'=>$id,'users'=>$user]);
 
         // check if the event id exist
         if (!$event) {
@@ -118,8 +118,8 @@ class EventsApiController extends AbstractController
 
             //updating event
 
-//            $event->setTitle($data['title']);
-            $event->setDatestr($data['datestr']);
+            $event->setTitle($data['title']);
+            $event->setDateString($data['datestr']);
 
             $entityManager->flush();
 
@@ -127,7 +127,7 @@ class EventsApiController extends AbstractController
 
             $response = [
                 'title' => $event->getTitle(),
-                'datestr'=> $event->getDatestr()
+                'datestr'=> $event->getDatestring()
             ];
 
             return new JsonResponse(['message' => "l'événement a été créé avec succès"], 201);
