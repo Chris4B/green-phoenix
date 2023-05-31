@@ -4,34 +4,8 @@ import 'bootstrap';
 import 'moment';
 import moment from "moment/moment";
 
-// Fonction pour obtenir les plages horaires disponibles
-function getAvailableTimeSlots(events, start, end, slotDuration) {
-    let availableSlots = [];
-    let currentSlot = start.clone();
 
-    while (currentSlot.isBefore(end)) {
-        let slotEnd = currentSlot.clone().add(slotDuration);
-
-        // Vérifiez si le slot courant ne chevauche aucun événement
-        let isSlotAvailable = events.every(function(event) {
-            return currentSlot.isSameOrAfter(event.end) || slotEnd.isSameOrBefore(event.start);
-        });
-
-        // Si le slot est disponible, ajoutez-le à la liste
-        if (isSlotAvailable) {
-            availableSlots.push({
-                start: currentSlot.clone(),
-                end: slotEnd.clone()
-            });
-        }
-
-        currentSlot.add(slotDuration);
-    }
-
-    return availableSlots;
-}
-
-
+let events = [];
 
 // render initial calendar
 window.onload =() => {
@@ -43,6 +17,8 @@ window.onload =() => {
     const doctorView = calendarElt.getAttribute('data-doctor-view');
     console.log(role)
     console.log(doctorView)
+
+
 
     let calendar = new FullCalendar.Calendar(calendarElt, {
         initialView: 'timeGridWeek',
@@ -136,11 +112,62 @@ window.onload =() => {
                         start: event.datestr
                     }));
                     successCallback(events);
+
+                    function findAvailableTimeSlots(calendar) {
+                        const view = calendar.view;
+                        const start = view.currentStart;
+                        const end = view.currentEnd;
+                        const slotDuration = calendar.getOption('slotDuration');
+                        const events = calendar.getEvents();
+                        console.log(events);
+
+                        const occupiedSlots = new Set();
+
+                        // Parcourir tous les événements pour marquer les créneaux horaires occupés
+                        for (let i = 0; i < events.length; i++) {
+                            const event = events[i];
+                            const eventStart = event.start;
+                            const eventEnd = event.end || event.start; // Si l'événement n'a pas de fin, on considère qu'il dure 1 créneau horaire
+
+                            const diff = (new Date(eventEnd) - new Date(eventStart)) / (1000 * 60 * slotDuration);
+                            const slots = Array.from({ length: diff }).map(function(_, index) {
+                                const slotTime = new Date(eventStart);
+                                slotTime.setMinutes(slotTime.getMinutes() + index * slotDuration);
+                                return slotTime.toISOString();
+                            });
+
+                            slots.forEach(function(slot) {
+                                occupiedSlots.add(slot);
+                            });
+                        }
+
+                        const availableSlots = [];
+
+                        // Parcourir les créneaux horaires de début à fin et trouver les créneaux horaires non occupés
+                        let currentSlot = new Date(start);
+                        while (currentSlot < new Date(end)) {
+                            const currentSlotISO = currentSlot.toISOString();
+                            if (!occupiedSlots.has(currentSlotISO)) {
+                                availableSlots.push(currentSlotISO);
+                            }
+
+                            currentSlot.setMinutes(currentSlot.getMinutes() + slotDuration);
+                        }
+
+                        console.log(availableSlots);
+                    }
+
+                    // Appel de la fonction pour trouver les plages horaires disponibles
+                    findAvailableTimeSlots(calendar);
+
+
+
                 })
                 .catch(error => {
                     console.error('Error fetching events', error);
                     failureCallback(error);
                 });
+
 
         },
         eventDrop: function(info){
@@ -205,41 +232,24 @@ window.onload =() => {
                 return false; // Les événements ne sont pas déplaçables pour les autres rôles
             }
         },
-        // eventRender: function(info) {
-        //     if (!doctorView) {
-        //         info.el.classList.add('non-editable-event');
-        //     }
-        // },
 
-        // get all the events of full calendar
-        // eventDidMount: function(info) {
-        //     let events = calendar.getEvents();
-        //     console.log(events);
-        //     let start = moment(info.event.start);
-        //     console.log(start);
-        //     let end = moment(info.event.end);
-        //     let slotDuration = moment.duration(calendar.getOption('slotDuration'));
-        //     console.log(slotDuration);
-        //     let availableSlots = getAvailableTimeSlots(events, start, slotDuration);
-        //     console.log(availableSlots);
-        //     console.log('Plages horaires disponibles :');
-        //     availableSlots.forEach(function(slot) {
-        //         console.log(slot.start.format('HH:mm'), '-', slot.end.format('HH:mm'));
-        //     });
-        // },
 
         allDaySlot: false,
         navLinks:true,
         selectable: true, // make able to select a slot
 
     })
-    calendar.render()
 
+
+
+    calendar.render()
+    // findAvailableTimeSlots(calendar);
     // get all the events of full calendar
 
-    let events =  calendar.getEvents();
+    // let events =  calendar.getEvents();
     //
-    console.log(events);
+    // console.log(events);
+
 
 
 

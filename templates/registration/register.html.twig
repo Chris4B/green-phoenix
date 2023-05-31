@@ -18,16 +18,16 @@
                         </div>
 
                         {% if errors is defined and errors|length > 0 %}
-                            <div >
-                                <ul>
-                                    {% for error in errors %}
-                                        <div class="alert alert-danger">
-                                            <li>{{ error }}</li>
-                                        </div>
+                        <div  class="row text-center">
+                            <ul class="colum">
+                                {% for error in errors %}
+                                    <div class="alert alert-danger">
+                                        <li>{{ error }}</li>
+                                    </div>
 
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                                {% endfor %}
+                            </ul>
+                        </div>
                         {% endif %}
 
                         <div class="row justify-content-center mt-3 mb-3">
@@ -59,29 +59,17 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mt-3 mb-3">
-                            <div class="col-10">
-                                <button class="btn btn-primary" type="submit">
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-10 text-center">
+                                <button class="btn btn-primary btn-lg mx-auto " type="submit">
                                     Valider
                                 </button>
                             </div>
-
-
-
-                            {#
-                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                            See https://symfony.com/doc/current/security/remember_me.html
-
-                            <div class="checkbox mb-3">
-                                <label>
-                                    <input type="checkbox" name="_remember_me"> Remember me
-                                </label>
-                            </div>
-                            #}
+                        </div>
 
                     </form>
 
-                    <div class="row mt-5 ">
+                    <div class=" mt-5 ">
                         <div class="text-center ">
                             <a class="small" href="{{ path('app_login') }}">Déja inscrit? Se Connecter</a>
                         </div>

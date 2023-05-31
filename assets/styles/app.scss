@@ -1,11 +1,5 @@
-//body {
-//    background-color: lightblue ;
-//}
-
-//$primary : blue;
-
 body{
-    background-color: lightblue;
+  background-color: #1d2124;
 }
 
 
@@ -19,7 +13,8 @@ body{
 @import '~@fortawesome/fontawesome-free/scss/brands';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 
-
+// CUSTOM VARIABLES
+@import'./app_variables';
 
 
 
