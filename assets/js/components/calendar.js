@@ -227,10 +227,19 @@ window.onload =() => {
         },
         eventAllow: function(dropInfo, draggedEvent) {
             if (doctorView) {
-                return true; // Les événements sont déplaçables pour le rôle "doctorView"
+                return true; // events are draggable for role dotcorView
             } else {
-                return false; // Les événements ne sont pas déplaçables pour les autres rôles
+                return false; // events are not draggablle for other roles
             }
+        },
+        // eventDidMount: function(arg){
+        //     const eventElement = arg.el;
+        //     eventElement.Style.height = '50px';
+
+        // },
+        slotLabelDidMount: function(arg) {
+            const slotLabelElement = arg.el;
+            slotLabelElement.style.height = '50px';
         },
 
 
