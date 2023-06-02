@@ -232,14 +232,14 @@ window.onload =() => {
                 return false; // events are not draggablle for other roles
             }
         },
-        // eventDidMount: function(arg){
-        //     const eventElement = arg.el;
-        //     eventElement.Style.height = '50px';
+        eventDidMount: function(arg){
+            const eventElement = arg.el;
+            eventElement.style.height = '60px';
 
-        // },
+        },
         slotLabelDidMount: function(arg) {
             const slotLabelElement = arg.el;
-            slotLabelElement.style.height = '50px';
+            slotLabelElement.style.height = '60px';
         },
 
 
