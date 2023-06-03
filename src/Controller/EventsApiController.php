@@ -58,14 +58,14 @@ class EventsApiController extends AbstractController
 
 
             $user = $this->getUser();
-//            $doctor = $entityManager->getRepository(Doctors::class)->find($doctorsId);
+            $doctor = $entityManager->getRepository(Doctors::class)->find($doctorId);
             //creating new event and persisting
 
             $event = new Events();
             $event->setTitle($data['title']);
             $event->setDateString($data['datestr']);
             $event->setUsers($user);
-//            $event->setDoctors($doctor);
+            $event->setDoctors($doctor);
 
             $entityManager->persist($event);
             $entityManager->flush();

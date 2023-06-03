@@ -21,7 +21,8 @@ import $ from 'jquery';
 import '@popperjs/core';
 import 'bootstrap'; //adds functions to jQuery
 
-//IMPORT SB ADMIN CUSTOM JS
+//IMPORT BANNER COOKIES
+import './components/banner-cookies';
 
 
 // start the Stimulus application
