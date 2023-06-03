@@ -11,10 +11,10 @@
 
 {#        </div>#}
         {% if events is not empty %}
-            <h3>Mes Rendez-vous</h3>
-            <div class="card-deck">
+            <h3 class="text-center">Mes Rendez-vous</h3>
+            <div class="card-deck " id="event-card">
                 {% for event in events %}
-                    <div class="card mt-5">
+                    <div class="card mt-5 mx-auto">
 {#                        {% if event.picture is defined %}#}
 {#                            <img src="{{ event.picture }}" class="card-img-top" alt="Image de profil">#}
 {#                        {% endif %}#}
