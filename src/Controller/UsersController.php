@@ -18,7 +18,7 @@ class UsersController extends AbstractController
             throw $this->createAccessDeniedException('Accès refusé');
         }
 
-        // fetch user data
+        // fetch user Roles
         $data = [];
 
         $roles = $this->getUser()->getRoles();
@@ -34,7 +34,9 @@ class UsersController extends AbstractController
             $doctorView = true;
         }
 
-        $events = $eventsRepository->findBy(['doctors'=>$user]);
+        $events = $eventsRepository->findBy(['users'=>$user]);
+//        $events = $user->getEvents();
+
         return $this->render('users/index.html.twig', [
             'role'=> $data,
             'doctorView'=> $doctorView,

@@ -34,7 +34,7 @@ class EventsApiController extends AbstractController
             ];
         };
 
-        return $this->json($data);
+//        return $this->json($data);
     }
 
 

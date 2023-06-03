@@ -35,6 +35,9 @@ class DoctorsController extends AbstractController
 
         }
 
+
+
+
         return $this->render('doctors/index.html.twig', [
             'role'=> $data,
             'doctorView'=> $doctorView,
