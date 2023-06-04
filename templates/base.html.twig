@@ -30,7 +30,12 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
             </div>
             <div class="navbar-nav ml-auto ">
+                {% if app.user %}
+                    <a class="nav-link" href="{{ path('app_welcome_index') }}">Prendre RDV</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                {% else %}
                 <li class="nav-item dropdown ">
+
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Inscription</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_doctor_register') }}">Médecins</a></li>
@@ -46,6 +51,8 @@
                 {#                        </div>#}
                 {#                    </li>#}
                 <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                {% endif %}
+
             </div>
         </div>
     </div>

@@ -1,17 +1,17 @@
-{% extends 'template.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Green Phoenix | Accueil{% endblock %}
 
 {% block body %}
     <!-- Begin Page Content -->
-    <div class="container-fluid" >
+    <div class="container" >
 
         <!-- Page Heading -->
 {#        <div id="calendar" data-role="{{ role|join(',')}}" data-doctor-view="{{ doctorView }}">#}
 
 {#        </div>#}
         {% if events is not empty %}
-            <h3 class="text-center">Mes Rendez-vous</h3>
+            <h3 class="text-center mt-5">Mes Rendez-vous</h3>
             <div class="card-deck " id="event-card">
                 {% for event in events %}
                     <div class="card mt-5 mx-auto">
