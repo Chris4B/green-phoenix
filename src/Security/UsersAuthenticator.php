@@ -49,6 +49,7 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        // custom logic of success authentification
         $user = $token->getUser();
 
         if($user instanceof Users && in_array('ROLE_DOCTOR', $user->getRoles(), true)){

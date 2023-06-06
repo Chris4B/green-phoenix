@@ -17,6 +17,15 @@
                 <h2> Veuillez rechercher un médecin</h2>
             </div>
         </div>
+        {% if errors is defined and errors|length > 0 %}
+            <div class="alert alert-danger text-center mt-3">
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         <div class=" row justify-content-center mt-5 ">
             <div class="  col-6 mt-5">
                 <form class="d-flex justify-content-center " role="search" class="mt-5 me-auto" action="{{ path('app_welcome_index') }}" method="POST">
@@ -59,7 +68,7 @@
 {#                     <a href="{{ path('app_login', {'redirect': path('app_doctors',{'id':medecin.id})}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>#}
                         {% else %}
                             {{ medecin.firstName }} {{ medecin.lastName }}
-                            <a href="{{ path('app_doctors', {'id':medecin.id}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>
+                            <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#modal-{{ medecin.id }}">Prendre RDV</a>
                         {% endif %}
                     {%endfor %}
                 </ul>
@@ -73,7 +82,6 @@
                 {% endif %}
                 {% endif %}
             </div>
-
 
         </div>
 
@@ -95,58 +103,11 @@
         </button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="cookieModal" tabindex="-1" role="dialog" aria-labelledby="cookieModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-lg  modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cookieModalLabel">Politique de gestion des cookies</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h4>Politique de Cookies</h4>
-                    <p>
-                        Cette politique de cookies explique comment notre site utilise des cookies et d'autres technologies similaires pour vous offrir une meilleure expérience de navigation. En utilisant notre site, vous consentez à l'utilisation de cookies conformément à cette politique.
-                    </p>
 
-                    <h4>1. Qu'est-ce qu'un cookie ?</h4>
-                    <p>
-                        Un cookie est un petit fichier texte stocké sur votre appareil lorsque vous visitez un site web. Il permet au site de mémoriser vos actions et préférences (telles que la connexion, la langue, la taille de la police et d'autres préférences d'affichage) sur une période de temps afin que vous n'ayez pas à les saisir à chaque fois que vous revenez sur le site ou naviguez d'une page à une autre.
-                    </p>
-                    <h4>2. Types de cookies utilisés</h4>
-                    <p>
-                        Nous utilisons les types de cookies suivants sur notre site :
-                    </p>
-                    <ul>
-                        <li>Cookies de session</li>
-{#                        <li>Cookies persistants</li>#}
-{#                        <li>Cookies analytiques</li>#}
-{#                        <li>Cookies de marketing</li>#}
-                    </ul>
-                    <h4>3. Gestion des cookies</h4>
-                    <p>
-                        Vous pouvez gérer vos préférences en matière de cookies en ajustant les paramètres de votre navigateur pour accepter ou refuser les cookies. Veuillez noter que le refus des cookies peut affecter votre expérience sur notre site et limiter certaines fonctionnalités.
-                    </p>
-                    <h4>4. Cookies tiers</h4>
-                    <p>
-                        Nous pouvons autoriser des tiers, tels que des fournisseurs de services et des annonceurs, à placer des cookies sur notre site pour diverses finalités. Ces tiers peuvent collecter des informations sur votre utilisation de notre site et d'autres sites web, afin de vous fournir des publicités ciblées en fonction de vos intérêts.
-                    </p>
-                    <h4>5. Mises à jour de la politique de cookies</h4>
-                    <p>
-                        Nous pouvons mettre à jour cette politique de cookies de temps en temps pour refléter les changements dans nos pratiques en matière de cookies. Nous vous encourageons à consulter régulièrement cette page pour obtenir les informations les plus récentes sur notre utilisation des cookies.
-                    </p>
-                    <h4>6. Nous contacter</h4>
-                    <p>
-                        Si vous avez des questions ou des préoccupations concernant notre utilisation des cookies, veuillez nous contacter à [<strong>contact@green-phoenix.fr</strong>].
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     </div>
     <!-- End of Main Content -->
+
+
 {% endblock %}
 
