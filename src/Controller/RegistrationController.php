@@ -39,12 +39,12 @@ class RegistrationController extends AbstractController
             $password = trim($request->request->get('password'));
 
             // Check for empty values
-        if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
-            $errorMessages = ['Tous les champs sont obligatoires.'];
-            return $this->render('registration/register.html.twig', [
-                'errors' => $errorMessages
-            ]);
-        }
+//        if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+//            $errorMessages = ['Tous les champs sont obligatoires.'];
+//            return $this->render('registration/register.html.twig', [
+//                'errors' => $errorMessages
+//            ]);
+//        }
 
             //create a new user and hydrating data
             $user = new Users();

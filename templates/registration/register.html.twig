@@ -18,10 +18,10 @@
                         </div>
 
                         {% if errors is defined and errors|length > 0 %}
-                        <div  class="row text-center">
-                            <ul class="colum">
+                        <div  class="row justify-content-center">
+                            <ul class="list-unstyled text-center">
                                 {% for error in errors %}
-                                    <div class="alert alert-danger">
+                                    <div class="alert alert-danger text-center">
                                         <li>{{ error }}</li>
                                     </div>
 
@@ -52,6 +52,9 @@
                             <div class="form-group col-10">
                                 <label for="inputPassword">Mot de passe *</label>
                                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" >
+                                <small id="passwordHelpBlock" class="form-text ">
+                                    Le mot de passe doit comporter au moins 8 caractères, dont une majuscule et un caractère spécial.
+                                </small>
 
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"

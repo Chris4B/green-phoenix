@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'il existe déja un compte avec cet email')]
 #[ORM\InheritanceType('JOINED')]
@@ -23,6 +23,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Le champ Email ne doit pas être vide')]
+    #[Assert\Email(message: "{{label} n'est pas valide ")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -32,12 +34,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern:'/^(?=.*[A-Z])(?=.*\W).{8,}$/',
+        message: 'Votre mot de passe doit respecter les indications fournies'
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(message: 'Le champ Prénom ne doit pas être vide')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\NotBlank(message: 'Le champ Nom ne doit pas être vide')]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 50, nullable: true)]

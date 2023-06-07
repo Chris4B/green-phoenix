@@ -5,12 +5,11 @@
 {% block body %}
 
 
-
     <div class="row justify-content-center my-5">
         <div class="col-6">
             <div  class="card o-hidden border-0 shadow-lg my-5">
                 <div id="form-wrapper" class="card-body">
-                    <form method="POST" action="{{ path('app_doctor_register') }}">
+                    <form method="POST" action="{{ path('app_register') }}">
 
                         <div class="row justify-content-center mt-4">
                             <div class="form-group col-5 text-center">
@@ -19,12 +18,13 @@
                         </div>
 
                         {% if errors is defined and errors|length > 0 %}
-                            <div >
-                                <ul>
+                            <div  class="row justify-content-center">
+                                <ul class="list-unstyled text-center">
                                     {% for error in errors %}
                                         <div class="alert alert-danger text-center">
                                             <li>{{ error }}</li>
                                         </div>
+
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -52,6 +52,9 @@
                             <div class="form-group col-10">
                                 <label for="inputPassword">Mot de passe *</label>
                                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" >
+                                <small id="passwordHelpBlock" class="form-text ">
+                                    Le mot de passe doit comporter au moins 8 caractères, dont une majuscule et un caractère spécial.
+                                </small>
 
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"
@@ -59,29 +62,17 @@
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mt-3 mb-3">
-                            <div class="col-10">
-                                <button class="btn btn-primary" type="submit">
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-10 text-center">
+                                <button class="btn btn-primary btn-lg mx-auto " type="submit">
                                     Valider
                                 </button>
                             </div>
-
-
-
-                            {#
-                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                            See https://symfony.com/doc/current/security/remember_me.html
-
-                            <div class="checkbox mb-3">
-                                <label>
-                                    <input type="checkbox" name="_remember_me"> Remember me
-                                </label>
-                            </div>
-                            #}
+                        </div>
 
                     </form>
 
-                    <div class="row mt-5 ">
+                    <div class=" mt-5 ">
                         <div class="text-center ">
                             <a class="small" href="{{ path('app_login') }}">Déja inscrit? Se Connecter</a>
                         </div>
