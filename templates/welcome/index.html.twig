@@ -9,105 +9,108 @@
 {% block body %}
     <!-- Begin Page Content -->
 
-
-    <div class="container ">
-
-        <div class=" row flex-column mt-5">
-            <div class=" text-center mt-5 ">
-                <h2> Veuillez rechercher un médecin</h2>
+    <div class="container">
+        <div class="row flex-column mt-5">
+            <div class="text-center mt-5">
+                <h2>Veuillez rechercher un médecin</h2>
             </div>
         </div>
+
         {% if errors is defined and errors|length > 0 %}
             <div class="alert alert-danger text-center mt-3">
-                <ul>
+                <ul class="list-unstyled">
                     {% for error in errors %}
                         <li>{{ error.message }}</li>
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
-        <div class=" row justify-content-center mt-5 ">
-            <div class="  col-6 mt-5">
-                <form class="d-flex justify-content-center " role="search" class="mt-5 me-auto" action="{{ path('app_welcome_index') }}" method="POST">
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-6 mt-5">
+                <form class="d-flex justify-content-center mt-5 me-auto" action="{{ path('app_welcome_index') }}" method="POST" role="search">
                     <input class="form-control me-2" type="search" id="doctor_search" name="doctor_search" value="" placeholder="Rechercher un médecin" aria-label="Search">
-                    <button class="btn btn-outline-success mx-2" name="submit" type="submit">Rechercher </button>
+                    <button class="btn btn-outline-success mx-2" name="submit" type="submit">Rechercher</button>
                 </form>
             </div>
-
-            {% if medecins is defined %}
-            {% if medecins | length > 0 %}
-            <div class="col-8 ">
-                <div id="results" class=" mt-5 text-center ">
-                    <H5 id="nbr" class="mb-3 ">
-                        {{ medecins|length}} résultat{{ medecins |length >1 ? 's':'' }} trouvé{{ medecins |length >1 ? 's':'' }}
-                    </H5>
-                </div>
-
-                <ul>
-                    {% for medecin in medecins %}
-
-                        {% if not app.user %}
-                            <table class="table text-center">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Prénom</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-
-                                    <td>{{ medecin.lastName | capitalize }}</td>
-                                    <td>{{ medecin.firstName |capitalize }}</td>
-                                    <td><a href="{{ path('app_login', {'redirect' : path('app_doctors')}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-{#                     <a href="{{ path('app_login', {'redirect': path('app_doctors',{'id':medecin.id})}) }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>#}
-                        {% else %}
-                            {{ medecin.firstName }} {{ medecin.lastName }}
-                            <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#modal-{{ medecin.id }}">Prendre RDV</a>
-                        {% endif %}
-                    {%endfor %}
-                </ul>
-
-                {% else %}
-                    <div class="col-10">
-                        <div id="results" class=" mt-5 ">
-                            <H5 id="nbr" class="mb-3">Acun résultat trouvé</H5>
-                        </div>
-                    </div>
-                {% endif %}
-                {% endif %}
-            </div>
-
         </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-8 ">
+                {% if medecins is defined %}
+                    {% if medecins|length > 0 %}
 
+                    <div id="results" class="mt-5 text-center">
+                        <h5 id="nbr" class="mb-3">
+                            {{ medecins|length }} résultat{{ medecins|length > 1 ? 's' : '' }} trouvé{{ medecins|length > 1 ? 's' : '' }}
+                        </h5>
+                    </div>
 
-
-
-
-        <!-- Page Heading -->
-
-
-
+                    <table class="table text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for medecin in medecins %}
+                            <tr>
+                                <td>{{ medecin.lastName|capitalize }}</td>
+                                <td>{{ medecin.firstName|capitalize }}</td>
+                                <td>
+                                    {% if not app.user %}
+                                        <a href="{{ path('app_login') }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>
+                                    {% else %}
+                                        <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#modal-{{ medecin.firstName }}">
+                                            Prendre RDV
+                                        </a>
+                                        <!--Appointment  Modal -->
+                                        <div class="modal fade " id="modal-{{ medecin.firstName }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ medecin.firstName }}-label" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content appointment-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal-{{ medecin.firstName }}-label">Prendre rendez-vous</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Nom du médecin: Dr {{ medecin.lastName|capitalize }} {{ medecin.firstName |capitalize }}</p>
+                                                        <p>Date et heure du RDV: <input type="datetime-local" name="appointmentData">  </p>
+                                                        <p>Le Cabinet est ouvert du lundi au vendredi ,  de 8h à 17h</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                                        <button type="button" class="btn btn-success" id="appointment-patient">Confirmer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="col-10">
+                    <div id="results" class="mt-5">
+                        <h5 id="nbr" class="mb-3">Aucun résultat trouvé</h5>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
     </div>
-    <!-- /.container-fluid -->
+    <!-- End of Main Content -->
+
     <div id="cookie-banner" class="cookie-banner alert alert-info alert-dismissible fixed-bottom fade show text-center" role="alert">
-        <p>Ce site utilise des cookies. En poursuivant votre navigation, vous acceptez notre <a href="#" class="cookies-policy-link" data-toggle="modal" data-target="#cookieModal"><strong>Politique de gestion des cookies</strong> </a>.</p>
+        <p>Ce site utilise des cookies. En poursuivant votre navigation, vous acceptez notre <a href="#" class="cookies-policy-link" data-toggle="modal" data-target="#cookieModal"><strong>Politique de gestion des cookies</strong></a>.</p>
         <button id="cookie-accept" class="cookie-accept btn btn-success">J'accepte</button>
         <button type="button" id="cookie-accept" class="close" data-dismiss="alert" aria-label="Fermer">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-
-
-    </div>
-    <!-- End of Main Content -->
-
-
 {% endblock %}
-

@@ -42,9 +42,7 @@ class EventsApiController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
 
-
         if ($request->isMethod('POST') && (!empty($request->getContent()))){
-
 
             //decoding JSON
             $data = json_decode($request->getContent(), true);
@@ -71,7 +69,7 @@ class EventsApiController extends AbstractController
             $entityManager->flush();
 
             // succeed message
-
+//            return new JsonResponse(['message' => "l'événement a été créé avec succès"], 201);
             $response = [
                 'id'=>$event->getId(),
                 'title' => $event->getTitle(),
@@ -79,7 +77,6 @@ class EventsApiController extends AbstractController
 
             ];
 
-//            return new JsonResponse(['message' => "l'événement a été créé avec succès"], 201);
             return $this->json($response);
 
 

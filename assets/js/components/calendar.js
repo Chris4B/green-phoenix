@@ -10,9 +10,10 @@ let events = [];
 // render initial calendar
 window.onload =() => {
 
-
-
     let calendarElt = document.querySelector('#calendar')
+
+
+
     const role = calendarElt.getAttribute('data-role');
     const doctorView = calendarElt.getAttribute('data-doctor-view');
     console.log(role)
@@ -113,54 +114,6 @@ window.onload =() => {
                     }));
                     successCallback(events);
 
-                    function findAvailableTimeSlots(calendar) {
-                        const view = calendar.view;
-                        const start = view.currentStart;
-                        const end = view.currentEnd;
-                        const slotDuration = calendar.getOption('slotDuration');
-                        const events = calendar.getEvents();
-                        console.log(events);
-
-                        const occupiedSlots = new Set();
-
-                        // Parcourir tous les événements pour marquer les créneaux horaires occupés
-                        for (let i = 0; i < events.length; i++) {
-                            const event = events[i];
-                            const eventStart = event.start;
-                            const eventEnd = event.end || event.start; // Si l'événement n'a pas de fin, on considère qu'il dure 1 créneau horaire
-
-                            const diff = (new Date(eventEnd) - new Date(eventStart)) / (1000 * 60 * slotDuration);
-                            const slots = Array.from({ length: diff }).map(function(_, index) {
-                                const slotTime = new Date(eventStart);
-                                slotTime.setMinutes(slotTime.getMinutes() + index * slotDuration);
-                                return slotTime.toISOString();
-                            });
-
-                            slots.forEach(function(slot) {
-                                occupiedSlots.add(slot);
-                            });
-                        }
-
-                        const availableSlots = [];
-
-                        // Parcourir les créneaux horaires de début à fin et trouver les créneaux horaires non occupés
-                        let currentSlot = new Date(start);
-                        while (currentSlot < new Date(end)) {
-                            const currentSlotISO = currentSlot.toISOString();
-                            if (!occupiedSlots.has(currentSlotISO)) {
-                                availableSlots.push(currentSlotISO);
-                            }
-
-                            currentSlot.setMinutes(currentSlot.getMinutes() + slotDuration);
-                        }
-
-                        console.log(availableSlots);
-                    }
-
-                    // Appel de la fonction pour trouver les plages horaires disponibles
-                    findAvailableTimeSlots(calendar);
-
-
 
                 })
                 .catch(error => {
@@ -252,6 +205,9 @@ window.onload =() => {
 
 
     calendar.render()
+
+
+
     // findAvailableTimeSlots(calendar);
     // get all the events of full calendar
 

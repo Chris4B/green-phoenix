@@ -20,7 +20,7 @@ class WelcomeController extends AbstractController
     {
 
         $submit = $request->request->get('submit');
-        $search = $request->request->get (trim('doctor_search'));
+        $search = $request->request->get('doctor_search');
 
         // validation of data
         $errors = $validator->validate($search, [new NotBlank([
