@@ -23,8 +23,8 @@
                 <td>{{ event.dateString }}</td>
                 <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_events_show', {'id': event.id}) }}">show</a>
-                    <a href="{{ path('app_events_edit', {'id': event.id}) }}">edit</a>
+                    <a href="{{ path('app_event_users_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('app_event_users_edit', {'id': event.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_events_new') }}">Create new</a>
+    <a href="{{ path('app_event_users_new') }}">Create new</a>
 {% endblock %}

@@ -1,12 +1,20 @@
-// Create an appointment
+import $ from 'jquery';
 
-const confirmBtn = document.querySelector('#appointment-patient')
 
-confirmBtn.addEventListener('click', function (event){
-    event.preventDefault();
+// Creation of  an appointment
+window.onload = function(){
+    let confirmBtn =  document.querySelector('#appointment-patient')
+    let appointmentModal = document.querySelector('#appointmentModal')
+    console.log(confirmBtn)
+    confirmBtn.addEventListener('click', function (e){
+        e.preventDefault()
+        console.log('hey')
 
-    // retrieve data
+        //retrieve data from the modal
+        
 
-    const data = document.querySelector('input[name="appointmentData"]').value;
-    console.log(data)
-})
+        $('#appointmentModal').modal('hide')
+
+    })
+}
+

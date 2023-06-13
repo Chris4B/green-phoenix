@@ -23,6 +23,7 @@ import 'bootstrap'; //adds functions to jQuery
 
 //IMPORT BANNER COOKIES
 import './components/banner-cookies';
+import './components/appoinment'
 
 
 // start the Stimulus application

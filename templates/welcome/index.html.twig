@@ -62,11 +62,11 @@
                                     {% if not app.user %}
                                         <a href="{{ path('app_login') }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>
                                     {% else %}
-                                        <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#modal-{{ medecin.firstName }}">
+                                        <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#appointmentModal">
                                             Prendre RDV
                                         </a>
                                         <!--Appointment  Modal -->
-                                        <div class="modal fade " id="modal-{{ medecin.firstName }}" tabindex="-1" role="dialog" aria-labelledby="modal-{{ medecin.firstName }}-label" aria-hidden="true">
+                                        <div class="modal fade " id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="modal-{{ medecin.firstName }}-label" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content appointment-content">
                                                     <div class="modal-header">

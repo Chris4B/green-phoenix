@@ -38,11 +38,7 @@
         {% else %}
             <p>Aucun événement trouvé.</p>
         {% endif %}
-{#        {% endif %}#}
-{#        {{ dump (doctorView) }}#}
-{#        {{ dump (role) }}#}
-{#        {{ dump (user) }}#}
-{#        {{ dump(events) }}#}
+
 
     </div>
     <!-- /.container-fluid -->
@@ -50,10 +46,10 @@
     </div>
     <!-- End of Main Content -->
 
-    <!-- Modale -->
+    <!-- Modal modify Event  -->
     <div class="modal fade" id="modifyEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" id="modifyModalContent">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Modifier le Rdv</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -61,18 +57,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="newEventForm">
                         <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="date" class="form-control" id="date">
+                            <input type="date" class="form-control"  name="date">
                         </div>
                         <div class="form-group">
                             <label for="heure">Heure</label>
-                            <input type="time" class="form-control" id="heure">
-                        </div>
-                        <div class="form-group">
-                            <label for="minutes">Minutes</label>
-                            <input type="number" class="form-control" id="minutes" min="0" max="59">
+                            <input type="time" class="form-control" name="hours">
                         </div>
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </form>
