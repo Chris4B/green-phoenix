@@ -34,7 +34,7 @@ class EventsApiController extends AbstractController
             ];
         };
 
-//        return $this->json($data);
+        return new JsonResponse($data, Response::HTTP_OK);
     }
 
 
