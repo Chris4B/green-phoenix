@@ -62,11 +62,11 @@
                                     {% if not app.user %}
                                         <a href="{{ path('app_login') }}" type="button" class="btn btn-success mx-5">Prendre RDV</a>
                                     {% else %}
-                                        <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#appointmentModal">
+                                        <a href="" type="button" class="btn btn-success mx-5" data-toggle="modal" data-target="#appointmentUserModal">
                                             Prendre RDV
                                         </a>
                                         <!--Appointment  Modal -->
-                                        <div class="modal fade " id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="modal-{{ medecin.firstName }}-label" aria-hidden="true">
+                                        <div class="modal fade " id="appointmentUserModal" tabindex="-1" role="dialog" aria-labelledby="modal-{{ medecin.firstName }}-label" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content appointment-content">
                                                     <div class="modal-header">
@@ -75,15 +75,18 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
+                                                    <form action="{{ path('app_event_users_new') }}" method="post">
                                                     <div class="modal-body">
                                                         <p>Nom du médecin: Dr {{ medecin.lastName|capitalize }} {{ medecin.firstName |capitalize }}</p>
                                                         <p>Date et heure du RDV: <input type="datetime-local" name="appointmentData">  </p>
                                                         <p>Le Cabinet est ouvert du lundi au vendredi ,  de 8h à 17h</p>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-                                                        <button type="button" class="btn btn-success" id="appointment-patient">Confirmer</button>
+                                                        <button type="submit" class="btn btn-success" id="appointment-patient">Confirmer</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

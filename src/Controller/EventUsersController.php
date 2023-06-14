@@ -31,13 +31,15 @@ class EventUsersController extends AbstractController
         if($request->isMethod('POST') && $request->request->has('submit')){
             //retrieve all the data from the request
             $formData = $request->request->all();
-            dd($formData);
+
             //Create a new instance of the Events entity
             $event = new Events();
 
             // set the properties of the events
             $event->setTitle($formData['title']);
             $event->setDateString($formData['date']);
+            $event->setDateString($user);
+            $event->setDoctors();
 
         }
 
