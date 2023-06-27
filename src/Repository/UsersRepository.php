@@ -56,13 +56,18 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->save($user, true);
     }
 
-    public function findByFirstName($firstName)
+    public function findByFirstName($searchTerm)
     {
         $queryBuilder = $this ->createQueryBuilder('u');
         $queryBuilder->where('u.roles LIKE :role')
-            ->andWhere($queryBuilder->expr()->like('u.firstName', ':firstName'))
+            ->andWhere(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->like('u.firstName', ':searchTerm'),
+                    $queryBuilder->expr()->like('u.lastName', ':searchTerm')
+                )
+            )
             ->setParameter('role', '%ROLE_DOCTOR%')
-            ->setParameter('firstName',  '%'.$firstName.'%');
+            ->setParameter('searchTerm',  '%'.$searchTerm.'%');
 
         return $queryBuilder->getQuery()->getResult();
     }

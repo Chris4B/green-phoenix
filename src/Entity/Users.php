@@ -29,7 +29,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: 'Le champ Email ne doit pas être vide')]
-    #[Assert\Email(message: "{{label}} n'est pas valide ")]
+    #[Assert\Email(message: "Le champ Email  n'est pas valide ")]
     private ?string $email = null;
 
     #[ORM\Column]

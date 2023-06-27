@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Events;
-use App\Form\Events2Type;
+use App\Entity\Users;
 use App\Repository\EventsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,45 +23,49 @@ class EventUsersController extends AbstractController
     }
 
     #[Route('/new', name: 'app_event_users_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EventsRepository $eventsRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
 
-        //check if the request is POST request
-
-        if($request->isMethod('POST') && $request->request->has('submit')){
             //retrieve all the data from the request
-            $formData = $request->request->all();
+        $requestData = json_decode($request->getContent(), true);
+        $appointmentData = $requestData['datestr'];
+        $doctorId = $requestData['doctorId'];
+
+
+            //findUserID
+        $userId = $entityManager->getRepository(Users::class)->find($user->getId());
+
+
+        $doctor = $entityManager->getRepository(Users::class)->find($doctorId);
 
             //Create a new instance of the Events entity
             $event = new Events();
 
             // set the properties of the events
-            $event->setTitle($formData['title']);
-            $event->setDateString($formData['date']);
-            $event->setDateString($user);
-            $event->setDoctors();
+            $event->setTitle($user->getFirstName().''.$user->getLastName());
+            $event->setDateString($appointmentData);
+            $event->setUsers($userId);
+            $event->setDoctors($doctor);
 
-        }
+            $entityManager->persist($event);
+            $entityManager->flush();
 
-
-
-
-
-//        $event = new Events();
-//        $form = $this->createForm(Events2Type::class, $event);
-//        $form->handleRequest($request);
+            // link patient and doctor
+        $doctor->addUser($user);
+        $user->addDoctor($doctor);
 //
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $eventsRepository->save($event, true);
-//
-//            return $this->redirectToRoute('app_event_users_index', [], Response::HTTP_SEE_OTHER);
-//        }
-//
-//        return $this->render('event_users/new.html.twig', [
-//            'event' => $event,
-//            'form' => $form,
-//        ]);
+//        dd($doctor->addUser($user));
+
+        // JSON response
+        $response = [
+            'message' => 'Le rendez-vous a été enregistré avec succès.',
+            'event' => $event,
+        ];
+
+        return new Response(json_encode($response), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+//        return  $this->redirectToRoute('app_users');
+
     }
 
     #[Route('/{id}', name: 'app_event_users_show', methods: ['GET'])]
@@ -72,21 +77,44 @@ class EventUsersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_event_users_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Events $event, EventsRepository $eventsRepository): Response
+    public function edit(Request $request,  EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Events2Type::class, $event);
-        $form->handleRequest($request);
+        $currentUser = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $eventsRepository->save($event, true);
+        //get the modified Data form the request
 
-            return $this->redirectToRoute('app_event_users_index', [], Response::HTTP_SEE_OTHER);
-        }
+        $requestData = json_decode($request->getContent(), true);
+        $dateString = $requestData('datestr');
+        $idEvent = $requestData['eventId'];
 
-        return $this->renderForm('event_users/edit.html.twig', [
-            'event' => $event,
-            'form' => $form,
-        ]);
+
+        // Retrieve the event by ID
+//        $event = $eventsRepository->find($idEvent);
+        $event = $entityManager->getRepository(Events::class)->findOneBy($idEvent);
+
+//        if (!$targetEvent) {
+//            // Event not found
+//            return $this->json(['message' => 'Événement non trouvé.'], Response::HTTP_NOT_FOUND);
+//        }
+
+        // update the event with the modified data
+        $event->setDateString($dateString);
+
+        //save the modified event
+//        $entityManager->persist($event);
+        $entityManager->flush();
+
+        //Create the response Data
+        $responseData = [
+            'event'=>$event,
+            'message'=> "L'événement a été modifié avec succès"
+        ];
+
+        //return Json
+        return $this->json($responseData);
+
+
+
     }
 
     #[Route('/{id}', name: 'app_event_users_delete', methods: ['POST'])]

@@ -2,6 +2,10 @@
 
 {% block title %}Green Phoenix | Accueil{% endblock %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
 {% block body %}
     <!-- Begin Page Content -->
     <div class="container" >
@@ -10,16 +14,25 @@
 {#        <div id="calendar" data-role="{{ role|join(',')}}" data-doctor-view="{{ doctorView }}">#}
 
 {#        </div>#}
+
         {% if events is not empty %}
             <h3 class="text-center mt-5">Mes Rendez-vous</h3>
-            <div class="card-deck " id="event-card">
-                {% for event in events %}
+{#            <div class="card-deck " id="event-card">#}
+            {% set sortedEvents = events|sort((a, b) => b.getCreatedAt() <=> a.getCreatedAt()) %}
+                {% for event in sortedEvents %}
+                {% set currentDate = "now"|date("Y-m-d") %}
+                {% set eventDate = event.dateString|date("Y-m-d") %}
+                {% if eventDate >= currentDate %}
+                <div class="row">
+                    <div class="col-12 d-block">
                     <div class="card mt-5 mx-auto">
 {#                        {% if event.picture is defined %}#}
 {#                            <img src="{{ event.picture }}" class="card-img-top" alt="Image de profil">#}
 {#                        {% endif %}#}
                         <div class="card-body">
-                            <h5 class="card-title">{{ event.title }}</h5>
+                            <h5 class="card-title">
+                               DOCTEUR {{ event.doctors.firstName() |capitalize}} {{ event.doctors.LastName() |capitalize }}
+                            </h5>
                             {% set dateComponents = event.dateString |split('T') %}
                             <p class="card-text">Date: {{ dateComponents[0] | date('d/m/Y')}}</p>
                             <p class="card-text">Heure: {{ dateComponents[1] }}</p>
@@ -27,13 +40,19 @@
 
                         </div>
                         <div class="card-footer d-flex ">
-                            <a href="#" class="btn btn-primary mx-1" data-toggle ="modal" data-target="#modifyEventModal" >Modifier le Rdv</a>
+{#                            <a href="#" class="btn btn-primary mx-1" data-toggle ="modal" data-target="#modifyEventModal-{{ event.id }}" >Modifier le Rdv</a>#}
+                            <a href="#" class="btn btn-primary mx-1" data-toggle ="modal" data-target="#modifyEventModal-{{ event.id }}" >Modifier le Rdv</a>
                             <a href="#" class="btn btn-danger">Supprimer le RDV</a>
                             <a href="#" class="btn btn-secondary ml-auto ">Voir la carte</a>
                         </div>
-
+                        {{ dump(event.id) }}
                     </div>
+                    </div>
+                </div>
+                    {% endif %}
+
                 {% endfor %}
+
             </div>
         {% else %}
             <p>Aucun événement trouvé.</p>
@@ -47,7 +66,8 @@
     <!-- End of Main Content -->
 
     <!-- Modal modify Event  -->
-    <div class="modal fade" id="modifyEventModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    {% for event in events %}
+       <div class="modal fade" id="modifyEventModal-{{ event.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" id="modifyModalContent">
                 <div class="modal-header">
@@ -60,17 +80,23 @@
                     <form id="newEventForm">
                         <div class="form-group">
                             <label for="date">Date</label>
-                            <input type="date" class="form-control"  name="date">
+                            <input type="datetime-local" class="form-control"  name="modified-date">
+                            <input type="hidden" name="event-id">
+                            {{ dump(event.id) }}
                         </div>
-                        <div class="form-group">
-                            <label for="heure">Heure</label>
-                            <input type="time" class="form-control" name="hours">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit"  data-event-id = {{ event.id}}  id="modify-appointment-btn">Enregistrer</button>
                     </form>
+{#                    <div class="modal-footer">#}
+{#                        <button type="button" class="btn btn-primary">Save changes</button>#}
+{#                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
 
+    {% endfor %}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}

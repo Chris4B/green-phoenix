@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\DoctorsRepository;
 use App\Repository\EventsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UsersController extends AbstractController
 {
     #[Route('/users', name: 'app_users')]
-    public function index(EventsRepository $eventsRepository): Response
+    public function index(EventsRepository $eventsRepository, DoctorsRepository $doctorsRepository): Response
     {
 
         $user = $this->getUser();
@@ -18,30 +19,20 @@ class UsersController extends AbstractController
             throw $this->createAccessDeniedException('Accès refusé');
         }
 
-        // fetch user Roles
-        $data = [];
+////      associated doctors
+//        $doctors = $user->getDoctors();
+//
+//
+//
+////        $events = $eventsRepository->findBy(['users'=>$user]);
+        $events = $user->getEvents();
 
-        $roles = $this->getUser()->getRoles();
-        foreach ($roles as $role){
-            $data[] = $role;
-        }
-
-        // checks if the view match with role
-
-        $doctorView = false;
-
-        if(in_array('ROLE_DOCTOR', $roles)){
-            $doctorView = true;
-        }
-
-        $events = $eventsRepository->findBy(['users'=>$user]);
-//        $events = $user->getEvents();
 
         return $this->render('users/index.html.twig', [
-            'role'=> $data,
-            'doctorView'=> $doctorView,
-            'user'=> $user,
-            'events'=>$events
+
+//            'doctor'=> $doctors,
+//            'user'=> $user,
+            'events'=>$events,
 
         ]);
     }
