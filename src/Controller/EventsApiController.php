@@ -64,8 +64,9 @@ class EventsApiController extends AbstractController
             $event->setTitle($data['title']);
             $event->setDateString($data['datestr']);
             $event->setUsers($user);
-            $event->setDoctors($doctor);
-
+            $event->setDoctors($user);
+//            $user->addDoctor($doctor);
+//
             $entityManager->persist($event);
             $entityManager->flush();
 

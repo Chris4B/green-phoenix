@@ -60,9 +60,7 @@ window.onload =() => {
         ],
 
         select: function(start){
-            if(!doctorView){
-                return;
-            }
+
 
             //showing up the modal
             $('#appointmentModal').modal('show')

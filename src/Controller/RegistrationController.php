@@ -130,7 +130,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($doctor);
             $entityManager->flush();
 
-            dd($doctor);
+
 
             return $this->redirectToRoute('app_login');
         }
