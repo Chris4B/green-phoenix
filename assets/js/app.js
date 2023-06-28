@@ -13,9 +13,7 @@
 import '../styles/app.scss';
 import '@fortawesome/fontawesome-free';
 
-// IMPORT JQUERY
-import $ from 'jquery';
-// global.$ = $;
+
 
 //IMPORT BOOTSTRAP
 import '@popperjs/core';
@@ -23,6 +21,11 @@ import 'bootstrap'; //adds functions to jQuery
 
 //IMPORT BANNER COOKIES
 import './components/banner-cookies';
+
+
+import './components/appoinment'
+// import './components/modify-modal'
+
 
 
 // start the Stimulus application

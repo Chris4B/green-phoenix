@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Doctors;
 use App\Entity\Events;
+use App\Entity\Users;
 use App\Repository\EventsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +35,9 @@ class EventsApiController extends AbstractController
             ];
         };
 
+
         return new JsonResponse($data, Response::HTTP_OK);
+
     }
 
 
@@ -56,15 +59,16 @@ class EventsApiController extends AbstractController
 
 
             $user = $this->getUser();
-            $doctor = $entityManager->getRepository(Doctors::class)->find($doctorId);
+            $doctor = $entityManager->getRepository(Users::class)->find($doctorId);
             //creating new event and persisting
 
             $event = new Events();
             $event->setTitle($data['title']);
             $event->setDateString($data['datestr']);
             $event->setUsers($user);
-            $event->setDoctors($doctor);
-
+            $event->setDoctors($user);
+//            $user->addDoctor($doctor);
+//
             $entityManager->persist($event);
             $entityManager->flush();
 

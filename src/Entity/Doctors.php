@@ -10,10 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DoctorsRepository::class)]
 class Doctors extends Users
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+//    #[ORM\Id]
+//    #[ORM\GeneratedValue]
+//    #[ORM\Column]
+//    private ?int $id = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $speciality = null;
@@ -31,10 +31,10 @@ class Doctors extends Users
         $this->events = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+//    public function getId(): ?int
+//    {
+//        return $this->id;
+//    }
 
     public function getSpeciality(): ?string
     {

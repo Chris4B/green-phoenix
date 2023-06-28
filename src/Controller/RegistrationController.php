@@ -109,6 +109,7 @@ class RegistrationController extends AbstractController
             $doctor->setSpeciality('Medecin');
 
 
+
             // Validation of data
 
             $errors = $validator->validate($doctor);
@@ -128,6 +129,8 @@ class RegistrationController extends AbstractController
             //Saving in the database
             $entityManager->persist($doctor);
             $entityManager->flush();
+
+
 
             return $this->redirectToRoute('app_login');
         }
