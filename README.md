@@ -5,10 +5,13 @@ Green-Phoenix is a personal project designed to put patients and doctors in touc
 ## Technology used
 
 Back-end
-- Symfony
+- Symfony 6
 - Webpack Encore
 - Sass
 - Git Versioning
+
+Front-end
+- Bootstrap
 
 Database
 - MySQL
