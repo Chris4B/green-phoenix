@@ -9,11 +9,24 @@ Back-end
 - Webpack Encore
 - Sass
 - Git Versioning
+- FullCalendar
 
 Front-end
 - Bootstrap
 
 Database
 - MySQL
+
+Features
+- doctor side
+  - implementation of full calendar ( Crud of Events)
+ 
+- Patient Side
+  - search a doctor
+  - take an appointment with a doctor
+  - view all appointments
+- General
+  - Authentification
+  -  API  
 
 
