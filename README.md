@@ -18,15 +18,15 @@ Database
 - MySQL
 
 ## Features
-- doctor side
-  - implementation of full calendar ( Crud of Events)
+- Doctor side
+  - Implementation of full calendar ( Crud of Events)
  
 - Patient Side
-  - search a doctor
-  - take an appointment with a doctor
-  - view all appointments
+  - Search a doctor
+  - Take an appointment with a doctor
+  - View all appointments
 - General
   - Authentification
-  -  API  
+  - API  
 
 
