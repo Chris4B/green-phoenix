@@ -17,7 +17,7 @@ Front-end
 Database
 - MySQL
 
-# Features
+## Features
 - doctor side
   - implementation of full calendar ( Crud of Events)
  
